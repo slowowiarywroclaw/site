@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Поддержать нашу церковь</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#f5f5f3;color:#171717;padding:24px}
+.card{width:min(560px,100%);background:white;border-radius:24px;padding:32px;
+box-shadow:0 12px 40px rgba(0,0,0,.09);text-align:center}
+h1{font-size:30px;line-height:1.15;margin:0 0 12px}
+.sub{color:#666;line-height:1.5;margin:0 auto 28px}
+.field{margin-bottom:20px;text-align:left}
+.label{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#777;margin-bottom:8px}
+.value{background:#f1f1ef;border-radius:14px;padding:15px 12px;font-size:17px;
+font-weight:650;word-break:break-word}
+button{width:100%;margin-top:9px;border:0;border-radius:14px;padding:14px;
+font-size:16px;font-weight:700;cursor:pointer;background:#171717;color:white}
+button:active{transform:scale(.99)}
+.status{height:20px;margin-top:7px;color:#26734d;font-size:14px;font-weight:600;text-align:center}
+.note{font-size:13px;color:#777;margin-top:22px;line-height:1.45}
+</style>
+</head>
+<body>
+<main class="card">
+<h1>Поддержать нашу церковь</h1>
+<p class="sub">Если вы хотите поддержать служение нашей церкви, здесь можно удобно скопировать реквизиты для перевода.</p>
+
+<div class="field">
+  <div class="label">Название получателя</div>
+  <div class="value" id="name">KOŚCIÓŁ ZIELONOŚWIĄTKOWY ZBÓR „SŁOWO WIARY” WE WROCŁAWIU</div>
+  <button onclick="copyText('name','nameStatus')">📋 Скопировать название</button>
+  <div class="status" id="nameStatus"></div>
+</div>
+
+<div class="field">
+  <div class="label">Номер счёта (IBAN)</div>
+  <div class="value" id="iban">PL05 1020 5226 0000 6502 0958 3149</div>
+  <button onclick="copyText('iban','ibanStatus')">📋 Скопировать IBAN</button>
+  <div class="status" id="ibanStatus"></div>
+</div>
+
+<p class="note">Спасибо за ваше участие и поддержку нашей церкви ❤️</p>
+</main>
+
+<script>
+async function copyText(elementId,statusId){
+  const text=document.getElementById(elementId).textContent.trim();
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const t=document.createElement("textarea");
+    t.value=text; document.body.appendChild(t); t.select();
+    document.execCommand("copy"); t.remove();
+  }
+  const status=document.getElementById(statusId);
+  status.textContent="✓ Скопировано";
+  setTimeout(()=>status.textContent="",2500);
+}
+</script>
+</body>
+</html>
